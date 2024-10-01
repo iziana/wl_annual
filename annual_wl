@@ -1,0 +1,17 @@
+from pylinac import WinstonLutz
+import zipfile
+
+path = r"/content/sept2.zip"
+
+with zipfile.ZipFile(path, 'r') as zip_ref:
+    zip_ref.extractall("/content/temp")
+
+# temp directory
+wl = WinstonLutz("/content/temp")
+wl.analyze(bb_size_mm=8)
+
+
+wl.plot_images()
+wl.images[3].plot()
+#wl.save_plots("wltest.png")
+wl.publish_pdf("sept2.pdf")
